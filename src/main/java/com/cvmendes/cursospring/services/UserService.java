@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cvmendes.cursospring.entities.User;
 import com.cvmendes.cursospring.repositories.UserRepository;
+import com.cvmendes.cursospring.resources.exceptions.ResourceNotFoundException;
 
 // anotation pour enregistrer UserService 
 
@@ -23,7 +24,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
